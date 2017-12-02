@@ -5,7 +5,6 @@
  */
 package agile;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -13,44 +12,54 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import DeliveryManDA.DeliveryMan;
+
 /**
  *
  * @author hp
  */
 class JTextFieldLimit extends PlainDocument {
-  private int limit;
-  JTextFieldLimit(int limit) {
-    super();
-    this.limit = limit;
-  }
 
-  JTextFieldLimit(int limit, boolean upper) {
-    super();
-    this.limit = limit;
-  }
-    public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
-    if (str == null)
-      return;
+    private int limit;
 
-    if ((getLength() + str.length()) <= limit) {
-      super.insertString(offset, str, attr);
+    JTextFieldLimit(int limit) {
+        super();
+        this.limit = limit;
     }
-  }
+
+    JTextFieldLimit(int limit, boolean upper) {
+        super();
+        this.limit = limit;
+    }
+
+    public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
+        if (str == null) {
+            return;
+        }
+
+        if ((getLength() + str.length()) <= limit) {
+            super.insertString(offset, str, attr);
+        }
+    }
 }
+
 public class create extends javax.swing.JFrame {
 
-private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
+    private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
 
     /**
      * Creates new form create
      */
     public create() {
-        DeliveryMan ManDA = new DeliveryMan(1001, "Yap Wenken", "970109265019", "Male", "0124370109", "40, Taman Gunung Tahan","yapwenken@yahoo.com.hk");
+        DeliveryMan ManDA = new DeliveryMan(1001, "Yap Wenken", "970109265019", "Male", "0124370109", "40, Taman Gunung Tahan", "yapwenken@yahoo.com.hk");
         DeliveryManList.add(ManDA);
         initComponents();
+        jtfIc.setDocument(new JTextFieldLimit(12));
+        jtfContact.setDocument(new JTextFieldLimit(11));
+        jtfEmail.setDocument(new JTextFieldLimit(50));
+        jtfName.setDocument(new JTextFieldLimit(30));
+        jAddress.setDocument(new JTextFieldLimit(200));
     }
 
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +69,7 @@ private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -70,13 +80,14 @@ private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
         jLabel8 = new javax.swing.JLabel();
         jtfName = new javax.swing.JTextField();
         jtfIc = new javax.swing.JTextField();
-        jGender = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jAddress = new javax.swing.JTextArea();
         jtfContact = new javax.swing.JTextField();
         jtfEmail = new javax.swing.JTextField();
         jCreate = new javax.swing.JButton();
         jClear = new javax.swing.JButton();
+        jMale = new javax.swing.JRadioButton();
+        jFemale = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,14 +126,6 @@ private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
             }
         });
 
-        jGender.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
-        jGender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jGenderActionPerformed(evt);
-            }
-        });
-
         jAddress.setColumns(20);
         jAddress.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jAddress.setRows(5);
@@ -158,6 +161,20 @@ private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
             }
         });
 
+        buttonGroup1.add(jMale);
+        jMale.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jMale.setSelected(true);
+        jMale.setText("Male");
+        jMale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMaleActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jFemale);
+        jFemale.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jFemale.setText("Female");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -174,20 +191,23 @@ private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(471, 471, 471)
-                                .addComponent(jLabel8))
+                                .addComponent(jLabel6))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jLabel6)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jMale)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8)))
                         .addGap(4, 4, 4))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfContact, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfIc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCreate))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jFemale)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtfContact, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtfIc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtfName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCreate)))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,14 +235,15 @@ private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
                 .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69)
+                    .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jMale)
+                    .addComponent(jFemale))
+                .addGap(68, 68, 68)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jtfContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCreate)
                     .addComponent(jClear))
@@ -245,76 +266,77 @@ private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
 
     private void jtfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNameActionPerformed
         // TODO add your handling code here:
-        jtfName.setDocument(new JTextFieldLimit(30));
-        
+
+
     }//GEN-LAST:event_jtfNameActionPerformed
 
     private void jClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClearActionPerformed
         // TODO add your handling code here:
         jtfName.setText("");
         jtfIc.setText("");
-        jGender.setSelectedIndex(0);
         jtfContact.setText("");
         jAddress.setText("");
         jtfEmail.setText("");
-        
+        jMale.setSelected(true);
+
     }//GEN-LAST:event_jClearActionPerformed
 
     private void jtfIcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfIcActionPerformed
         // TODO add your handling code here:
-        jtfIc.setDocument(new JTextFieldLimit(12));
-    }//GEN-LAST:event_jtfIcActionPerformed
 
-    private void jGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGenderActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jGenderActionPerformed
+    }//GEN-LAST:event_jtfIcActionPerformed
 
     private void jtfContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfContactActionPerformed
         // TODO add your handling code here:
-        jtfContact.setDocument(new JTextFieldLimit(11));
+
     }//GEN-LAST:event_jtfContactActionPerformed
 
     private void jtfEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfEmailActionPerformed
         // TODO add your handling code here:
-        jtfEmail.setDocument(new JTextFieldLimit(50));
+
     }//GEN-LAST:event_jtfEmailActionPerformed
 
     private void jCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCreateActionPerformed
         // TODO add your handling code here:
-        
-       String name = jtfName.getText();
-       String ic = jtfIc.getText();
-       String gender = jGender.getSelectedItem().toString();
-       String contact = jtfContact.getText();
-       String address = jAddress.getText();
-       String email = jtfEmail.getText();
-       
-       int id = DeliveryManList.get(DeliveryManList.size()-1).getID();
-               
-       ++id;
-       if(jtfName.getText().equals("")){
-           JOptionPane.showMessageDialog(null, "Please fill in the name","Error", JOptionPane.ERROR_MESSAGE);
-       }else if(jtfIc.getText().equals("")){
-           JOptionPane.showMessageDialog(null, "Please fill in the IC","Error", JOptionPane.ERROR_MESSAGE);
-       }else if(jtfContact.getText().equals("")){
-           JOptionPane.showMessageDialog(null, "Please fill in the contact","Error", JOptionPane.ERROR_MESSAGE);
-       }else if(jtfEmail.getText().equals("")){
-           JOptionPane.showMessageDialog(null, "Please fill in the email","Error", JOptionPane.ERROR_MESSAGE);
-       }else if(jGender.getSelectedItem()==null){
-         JOptionPane.showMessageDialog(null, "Please choose one of the gender","Error", JOptionPane.ERROR_MESSAGE);  
-       }else if(jAddress.getText().equals("")){
-           JOptionPane.showMessageDialog(null, "Please fill in the address","Error", JOptionPane.ERROR_MESSAGE); 
-       }else{
-           DeliveryMan ManDA = new DeliveryMan(id,name,ic,gender,contact,address,email);
-           DeliveryManList.add(ManDA);
-           JOptionPane.showMessageDialog(null, "Successful! Your ID is "+ id,"Success", JOptionPane.INFORMATION_MESSAGE);
-           
-       }
+
+        String name = jtfName.getText();
+        String ic = jtfIc.getText();
+        String gender;
+        String contact = jtfContact.getText();
+        String address = jAddress.getText();
+        String email = jtfEmail.getText();
+
+        if (jMale.isSelected()) {
+            gender = "male";
+        } else {
+            gender = "female";
+        }
+
+        int id = DeliveryManList.get(DeliveryManList.size() - 1).getID();
+
+        ++id;
+        if (jtfName.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill in the name", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (jtfIc.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill in the IC", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (jtfContact.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill in the contact", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (jtfEmail.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill in the email", "Error", JOptionPane.ERROR_MESSAGE);
+        }  else if (jAddress.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill in the address", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            DeliveryMan ManDA = new DeliveryMan(id, name, ic, gender, contact, address, email);
+            DeliveryManList.add(ManDA);
+            JOptionPane.showMessageDialog(null, "Successful! Your ID is " + id, "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        }
     }//GEN-LAST:event_jCreateActionPerformed
 
+    private void jMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMaleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMaleActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
@@ -351,10 +373,11 @@ private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextArea jAddress;
     private javax.swing.JButton jClear;
     private javax.swing.JButton jCreate;
-    private javax.swing.JComboBox<String> jGender;
+    private javax.swing.JRadioButton jFemale;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -362,6 +385,7 @@ private static List<DeliveryMan> DeliveryManList = new ArrayList<>();
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JRadioButton jMale;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jtfContact;
